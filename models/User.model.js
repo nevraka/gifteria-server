@@ -1,20 +1,34 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
+require('./Product.model');
+// 1. Define your schema
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
-const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      // unique: true -> Ideally, should be unique, but its up to you
-    },
-    password: String,
+let userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
   },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
-  }
-);
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  img: {
+    type: String,
+    default: 'images/profile.png',
+  },
+  productId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Product',
+    },
+  ],
+});
 
-const User = model("User", userSchema);
+// 2. Define your model
+let UserModel = model('user', userSchema);
 
-module.exports = User;
+// 3. Export your Model with 'module.exports'
+module.exports = UserModel;
