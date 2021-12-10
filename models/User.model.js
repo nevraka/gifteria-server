@@ -3,13 +3,22 @@ require('./Product.model');
 // 1. Define your schema
 
 let userSchema = new Schema({
-  username: {
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
+    type: String,
+    required: true,
+  },
+  address: {
     type: String,
     required: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -19,7 +28,7 @@ let userSchema = new Schema({
     type: String,
     default: 'images/profile.png',
   },
-  productId: [
+  cart: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Product',

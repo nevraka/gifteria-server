@@ -5,7 +5,6 @@ let productSchema = new Schema({
   name: String,
   price: Number,
   image: String,
-  isBox: Boolean,
   description: String,
   category: {
     type: Schema.Types.ObjectId,
