@@ -7,7 +7,7 @@ let categorySchema = new Schema({
 });
 
 // 2. Define your model
-let CategoryModel = model('category', categorySchema);
+let CategoryModel = model('Category', categorySchema);
 
 // 3. Export your Model with 'module.exports'
 module.exports = CategoryModel;

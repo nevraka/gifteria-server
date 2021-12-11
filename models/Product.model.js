@@ -13,7 +13,7 @@ let productSchema = new Schema({
 });
 
 // 2. Define your model
-let ProductModel = model('product', productSchema);
+let ProductModel = model('Product', productSchema);
 
 // 3. Export your Model with 'module.exports'
 module.exports = ProductModel;
