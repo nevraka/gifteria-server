@@ -8,9 +8,9 @@ router.post('/signup', (req, res) => {
 
   // -----SERVER SIDE VALIDATION ----------
 
-  if (!username || !email || !password) {
+  if (!name || !surname || !address || !email || !password) {
     res.status(400).json({
-      errorMessage: 'Please enter username, email and password',
+      errorMessage: 'Please enter name, surname, address, email, and password',
     });
     return;
   }
