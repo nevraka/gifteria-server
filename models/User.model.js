@@ -30,8 +30,15 @@ let userSchema = new Schema({
   },
   cart: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
     },
   ],
 });
