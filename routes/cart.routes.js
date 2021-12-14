@@ -21,7 +21,7 @@ router.post('/cart', isLoggedIn, (req, res) => {
       }
       return user.save();
     })
-    .then((user) => {
+    .then(() => {
       return UserModel.findById({ _id: userId }).populate('cart.product');
     })
     .then((user) => {
@@ -68,7 +68,7 @@ router.put('/cart', isLoggedIn, (req, res) => {
       }
       return user.save();
     })
-    .then((user) => {
+    .then(() => {
       return UserModel.findById({ _id: userId }).populate('cart.product');
     })
     .then((user) => {
