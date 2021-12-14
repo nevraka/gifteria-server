@@ -9,16 +9,22 @@ router.post('/cart', isLoggedIn, (req, res) => {
   const userId = req.session.loggedInUser._id;
 
   UserModel.findById({ _id: userId })
+    .populate('cart.product')
     .then((user) => {
       const item = user.cart.find((c) => {
-        return c.product.toString() === productId;
+        return c.product._id.toString() === productId;
       });
       if (item) {
         item.quantity++;
       } else {
         user.cart.push({ product: productId, quantity: 1 });
       }
-      user.save();
+      return user.save();
+    })
+    .then((user) => {
+      return UserModel.findById({ _id: userId }).populate('cart.product');
+    })
+    .then((user) => {
       res.status(200).json(user.cart);
     })
     .catch((err) => {
@@ -33,6 +39,7 @@ router.get('/cart', isLoggedIn, (req, res) => {
   const userId = req.session.loggedInUser._id;
 
   UserModel.findById({ _id: userId })
+    .populate('cart.product')
     .then((user) => {
       res.status(200).json(user.cart);
     })
@@ -49,16 +56,22 @@ router.put('/cart', isLoggedIn, (req, res) => {
   const userId = req.session.loggedInUser._id;
 
   UserModel.findById({ _id: userId })
+    .populate('cart.product')
     .then((user) => {
       const item = user.cart.find((c) => {
-        return c.product.toString() === productId;
+        return c.product._id.toString() === productId;
       });
       if (item) {
         item.quantity = quantity;
       } else {
         user.cart.push({ product: productId, quantity: quantity });
       }
-      user.save();
+      return user.save();
+    })
+    .then((user) => {
+      return UserModel.findById({ _id: userId }).populate('cart.product');
+    })
+    .then((user) => {
       res.status(200).json(user.cart);
     })
     .catch((err) => {
@@ -74,9 +87,10 @@ router.delete('/cart', isLoggedIn, (req, res) => {
   const userId = req.session.loggedInUser._id;
 
   UserModel.findById({ _id: userId })
+    .populate('cart.product')
     .then((user) => {
       user.cart = user.cart.filter((c) => {
-        return c.product.toString() !== productId;
+        return c.product._id.toString() !== productId;
       });
       user.save();
       res.status(200).json(user.cart);
