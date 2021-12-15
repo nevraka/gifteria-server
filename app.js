@@ -61,9 +61,6 @@ app.use('/api', categoryRoutes);
 const cartRoutes = require('./routes/cart.routes');
 app.use('/api', cartRoutes);
 
-const fileUploadRoutes = require('./routes/file-upload.routes');
-app.use('/api', fileUploadRoutes);
-
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + '/public/index.html');

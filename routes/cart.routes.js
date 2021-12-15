@@ -75,6 +75,7 @@ router.put('/cart', isLoggedIn, (req, res) => {
       res.status(200).json(user.cart);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({
         error: 'Something went wrong',
         message: err,
@@ -90,12 +91,13 @@ router.delete('/cart', isLoggedIn, (req, res) => {
     .populate('cart.product')
     .then((user) => {
       user.cart = user.cart.filter((c) => {
-        return c.product._id.toString() !== productId;
+        return c.product && c.product._id.toString() !== productId;
       });
       user.save();
       res.status(200).json(user.cart);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({
         error: 'Something went wrong',
         message: err,
